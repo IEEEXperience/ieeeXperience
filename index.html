@@ -138,7 +138,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <p class="ln ed">MARINE EDITION</p>
 <p class="ln thm"><small>THEME</small>OCEAN OF SECRETS</p>
 <p class="ln tag">Every experience leaves a legacy</p>
-<div class="ln det"><div><small>DATE</small><b>28 November 2026</b></div><div><small>HEURE</small><b>14:00 – 18:00</b></div><div><small>LIEU</small><b>FSEGS Sfax</b></div></div>
+<div class="ln det"><div><small>DATE</small><b>02 decembre 2026</b></div><div><small>HEURE</small><b>14:00 – 18:00</b></div><div><small>LIEU</small><b>FSEGS Sfax</b></div></div>
 <div class="plan">
 <h3 class="ln">THE PLANNING</h3>
 <ul class="tl">
@@ -165,7 +165,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 <svg viewBox="0 0 100 100"><polygon points="50,10 58,42 90,50 58,58 50,90 42,58 10,50 42,42"/></svg>
 <svg viewBox="0 0 100 100"><path d="M8 55 Q29 25 50 55 T92 55"/><path d="M8 75 Q29 45 50 75 T92 75"/></svg>
 </div>
-<p class="who" id="finalName">SEE YOU ON 28 NOVEMBER 2026.</p>
+<p class="who" id="finalName">SEE YOU ON 02 decembre 2026.</p>
 <p class="thm2">OCEAN OF SECRETS</p>
 <div class="row"><button class="lnk share">SHARE INVITATION</button><button class="lnk replay">REPLAY</button></div>
 </section>
@@ -246,10 +246,10 @@ function openIt(){
 $('#open').addEventListener('click',openIt);
 /* ===== RSVP e-mail ===== */
 var RSVP_TO='fsegs@ieee.tn',SUBJECT='Confirmation of Attendance – IEEE Xperience 2.0 (Marine Edition)';
-function bodyFor(n){return 'Dear IEEE FSEGS Student Branch Team,\n\nI am pleased to confirm my attendance at IEEE Xperience 2.0 – Marine Edition (theme: Ocean of Secrets).\n\nParticipant: '+n+'\nDate: 28 November 2026\nTime: 14:00 – 18:00\nVenue: FSEGS Sfax\n\nThank you for the invitation. I look forward to attending.\n\nBest regards,\n'+n}
+function bodyFor(n){return 'Dear IEEE FSEGS Student Branch Team,\n\nI am pleased to confirm my attendance at IEEE Xperience 2.0 – Marine Edition (theme: Ocean of Secrets).\n\nParticipant: '+n+'\nDate: 02 decembre 2026\nTime: 14:00 – 18:00\nVenue: FSEGS Sfax\n\nThank you for the invitation. I look forward to attending.\n\nBest regards,\n'+n}
 function confirmed(n){
   state='accepted';initAudio();sfxAccept();flash();
-  $('#finalName').textContent=n.toUpperCase()+', SEE YOU ON 28 NOVEMBER 2026.';
+  $('#finalName').textContent=n.toUpperCase()+', SEE YOU ON 02 decembre 2026.';
   $('#final').classList.add('on');
 }
 function viaMailto(n){location.href='mailto:'+RSVP_TO+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(bodyFor(n))}
@@ -261,7 +261,7 @@ $('#accept').addEventListener('click',function(){
   var done=false,fin=function(ok){if(done)return;done=true;btn.disabled=false;confirmed(n);if(!ok)viaMailto(n)};
   try{
     fetch('https://formsubmit.co/ajax/'+RSVP_TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({_subject:SUBJECT,_template:'table',_captcha:'false',Name:n,Event:'IEEE Xperience 2.0 – Marine Edition (Ocean of Secrets)',Date:'28 November 2026, 14:00 – 18:00',Venue:'FSEGS Sfax',Message:bodyFor(n)})})
+      body:JSON.stringify({_subject:SUBJECT,_template:'table',_captcha:'false',Name:n,Event:'IEEE Xperience 2.0 – Marine Edition (Ocean of Secrets)',Date:'02 decembre 2026, 14:00 – 18:00',Venue:'FSEGS Sfax',Message:bodyFor(n)})})
     .then(function(r){return r.json()}).then(function(j){fin(j&&(j.success===true||j.success==='true'))}).catch(function(){fin(false)});
   }catch(e){fin(false)}
 });
@@ -276,7 +276,7 @@ $$('.replay').forEach(function(b){b.addEventListener('click',replay)});
 
 /* share */
 function share(){
-  var d={title:'IEEE XPERIENCE 2.0 — Marine Edition',text:'You have been chosen. IEEE Xperience 2.0 Marine Edition: Ocean of Secrets. 28 November 2026, FSEGS Sfax.',url:location.href};
+  var d={title:'IEEE XPERIENCE 2.0 — Marine Edition',text:'You have been chosen. IEEE Xperience 2.0 Marine Edition: Ocean of Secrets. 02 decembre 2026, FSEGS Sfax.',url:location.href};
   var legacy=function(){try{var a=document.createElement('textarea');a.value=d.url;a.style.position='fixed';a.style.opacity='0';document.body.appendChild(a);a.select();var ok=document.execCommand('copy');document.body.removeChild(a);toast(ok?'LINK COPIED':'COPY THE LINK FROM YOUR ADDRESS BAR')}catch(e){toast('COPY THE LINK FROM YOUR ADDRESS BAR')}};
   var fb=function(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(d.url).then(function(){toast('LINK COPIED')},legacy)}else legacy()};
   if(navigator.share){navigator.share(d).catch(function(e){if(!e||e.name!=='AbortError')fb()})}else fb();
