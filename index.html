@@ -255,19 +255,13 @@ function confirmed(n){
 function viaMailto(n){location.href='mailto:'+RSVP_TO+'?subject='+encodeURIComponent(SUBJECT)+'&body='+encodeURIComponent(bodyFor(n))}
 $('#accept').addEventListener('click',function(){
   if(state!=='revealed')return;
-  var inp=$('#guestName'),n=inp.value.replace(/\s+/g,' ').trim(),btn=this;
+  var inp=$('#guestName'),n=inp.value.replace(/\s+/g,' ').trim();
   if(n.length<2){inp.classList.remove('err');void inp.offsetWidth;inp.classList.add('err');inp.focus();toast('PLEASE WRITE YOUR NAME');return}
-  btn.disabled=true;
-  var done=false,fin=function(ok){if(done)return;done=true;btn.disabled=false;confirmed(n);if(!ok)viaMailto(n)};
-  try{
-    fetch('https://formsubmit.co/ajax/'+RSVP_TO,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({_subject:SUBJECT,_template:'table',_captcha:'false',Name:n,Event:'IEEE Xperience 2.0 – Marine Edition (Ocean of Secrets)',Date:'02 decembre 2026, 14:00 – 18:00',Venue:'FSEGS Sfax',Message:bodyFor(n)})})
-    .then(function(r){return r.json()}).then(function(j){fin(j&&(j.success===true||j.success==='true'))}).catch(function(){fin(false)});
-  }catch(e){fin(false)}
+  confirmed(n);
+  viaMailto(n);
 });
 $('#guestName').addEventListener('keydown',function(e){if(e.key==='Enter')$('#accept').click()});
-$('#guestName').addEventListener('input',function(){this.classList.remove('err')});
-function replay(){
+$('#guestName').addEventListener('input',function(){this.classList.remove('err')});function replay(){
   T.forEach(clearTimeout);T=[];stopAmb();
   [['#bot','shake pop out gone'],['#intro','go hide'],['#reveal','on'],['#final','on']].forEach(function(x){var el=$(x[0]);x[1].split(' ').forEach(function(c){el.classList.remove(c)})});
   $('#reveal').scrollTop=0;$('#guestName').value='';state='idle';
